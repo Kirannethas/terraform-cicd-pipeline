@@ -30,3 +30,16 @@ resource "azurerm_storage_container" "main" {
   storage_account_id    = azurerm_storage_account.main.id
   container_access_type = "private"
 }
+
+# 4. Virtual Network
+resource "azurerm_virtual_network" "main" {
+  name                = "vnet-terraform-cicd-demo"
+  address_space       = ["10.0.0.0/16"]
+  location            = azurerm_resource_group.main.location
+  resource_group_name = azurerm_resource_group.main.name
+  
+  tags = {
+    project     = "terraform-cicd"
+    environment = "dev"
+  }
+}
